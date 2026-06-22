@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Selection DOM</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1 id="nama-kelas">Kelas D3 Manajemen Informatika</h1>
@@ -12,15 +13,12 @@
     </p>
 
     <h3>Daftar Mahasiswa</h3>
-    <ul>
-      <li class="mahasiswa lulus">Rian Hidayat - Lulus</li>
-      <li class="mahasiswa belum-lulus">Sari Utami - Belum Lulus</li>
-      <li class="mahasiswa lulus">Gita Lestari - Lulus</li>
-      <li class="mahasiswa belum-lulus">Budi Santoso - Belum Lulus</li>
-    </ul>
+    <div id="listData"></div>
 
-    <button id="id-higlight">Sorot Mahasiswa Lulus</button>
-    <button class="btn-reset">Reset Tampilan</button>
+    <button id="tampilkan">Tampilkan Seluruh Mahasiswa</button>
+    <br />
+    <br />
+    <button id="showLulus">Tampilkan yang Lulus</button>
 
     <script src="script.js"></script>
   </body>
