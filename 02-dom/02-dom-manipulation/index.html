@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,4 +51,56 @@
     </div>
     <script src="script.js"></script>
 </body>
-</html>
+</html> -->
+
+
+
+
+<!-- Case 2 -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 20px; background-color: #f8fafc; color: #334155; }
+        h1 { color: #0f172a; margin-bottom: 5px; }
+        .Slogan { color: #64748b; margin-bottom: 25px; }
+
+        #container-pesanan { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px; 
+        }
+
+
+        .card-pesanan { 
+            background: white; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+            padding: 20px; 
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); 
+            margin-bottom: 20px;
+        }
+        .id-tx { font-weight: bold; color: #2563eb; font-size: 0.9rem; }
+        .nama-kasir { font-size: 1.2rem; margin: 5px 0; color: #1e293b; }
+        .tipe-badge { 
+            display: inline-block; 
+            padding: 3px 8px; 
+            border-radius: 6px; 
+            font-size: 0.8rem; 
+            font-weight: bold; 
+        }
+        .dine-in { background-color: #dbeafe; color: #1e40af; }
+        .take-away { background-color: #fef3c7; color: #92400e; }
+        .total-harga { margin-top: 15px; font-weight: bold; color: #0f172a; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
+    </style>
+ </head>
+ <body>
+    <h1>OXA COFFEE</h1>
+    <p class = "Slogan">Laporan Transaksi</p>
+    <div id="pesanan-container"></div>
+    <script src="script.js"></script>
+ </body>
+ </html>
