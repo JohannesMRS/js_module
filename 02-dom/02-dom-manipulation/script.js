@@ -23,6 +23,8 @@
 // Case 2
 const containerPesanan = document.getElementById("pesanan-container");
 let kartuHTMl = "";
+const btnTheme = document.getElementById("btn-theme")
+const body = document.body
 
 
 const laporanTransaksiOxa = [
@@ -46,5 +48,21 @@ laporanTransaksiOxa.forEach((l)=>{
 
 
 containerPesanan.innerHTML = kartuHTMl
+
+btnTheme.addEventListener("click", ()=>{
+    body.classList.toggle("dark-mode")
+    const isDark = body.classList.contains('dark-mode')
+
+    if(isDark){
+        btnTheme.textContent = "Switch To Light Mode"
+        btnTheme.style.backgroundColor = "#e2e8f0"
+        btnTheme.style.color = "#0f172a"
+    }else{
+        btnTheme.textContent = "Switch To Dark Mode"
+        btnTheme.style.backgroundColor = "#0f172a"
+        btnTheme.style.color = "#e2e8f0"
+    }
+    
+})
 
 

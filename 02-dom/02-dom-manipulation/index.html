@@ -62,9 +62,45 @@
  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kasir</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; padding: 20px; background-color: #f8fafc; color: #334155; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            padding: 20px; 
+            background-color: #f8fafc; 
+            color: #334155; 
+            transition: all .2s ease-in-out;
+        }
+
+
+
+        .dark-mode{
+            background-color: #334155;
+            color: #f8fafc;
+        }
+
+        .dark-mode .card-pesanan{
+            background-color: #0f172a;
+            color: #e2e8f0;
+            transition: all .2s ease-in-out;
+        }
+        .dark-mode .card-pesanan h3,
+        .dark-mode .card-pesanan p{
+            color: #e2e8f0;
+        }
+
+        #btn-theme{
+            margin-top: 50px;
+            height: 50px;
+            margin-right: 20px;
+            background-color: #0f172a;
+            border-radius: 6px;
+            color: #e2e8f0;
+            padding: 10px;
+            cursor: pointer;
+            border: 2px solid gray;
+        }
+
         h1 { color: #0f172a; margin-bottom: 5px; }
         .Slogan { color: #64748b; margin-bottom: 25px; }
 
@@ -72,6 +108,16 @@
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 20px; 
+        }
+
+        #container{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .dark-mode .bg-light{
+            background-color: #dbeafe;
+            color: #0f172a;
         }
 
 
@@ -98,8 +144,13 @@
     </style>
  </head>
  <body>
-    <h1>OXA COFFEE</h1>
-    <p class = "Slogan">Laporan Transaksi</p>
+    <div id="container">
+        <div id = "container-title">
+            <h1>OXA COFFEE</h1>
+            <p class = "Slogan">Laporan Transaksi</p>
+        </div>
+        <button id="btn-theme">Dark Mode</button>
+    </div>
     <div id="pesanan-container"></div>
     <script src="script.js"></script>
  </body>
