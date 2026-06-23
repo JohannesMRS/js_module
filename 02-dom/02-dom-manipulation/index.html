@@ -5,7 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    body{
+        font-family: sans-serif;
+        transition: background .3s color .3s;
+        padding: 20px;
+    }
+
+    .dark-mode{
+        background-color: rgb(19, 0, 18);
+        color: white;
+    }
+
+    .bg-lulus{
+        border-color: #22c55e;
+        background-color: #f0fdf4;
+        color: #15803d;
+    }
+    .dark-mode .bg-lulus{
+        background-color: #15432d;
+        color: #bbf7d0;
+    }
+    .dark-mode #btn-kelulusan{
+        color: black;
+        background-color: white;
+        border: #15803d;
+        border-radius: 3px;
+    }
+
+    .card{
+        border: 2px solid #747171;
+        padding: 15px;
+        border-radius: 12px;
+        width: 300px;
+        margin-top: 20px;
+    }
+</style>
 <body>
-    
+    <button id="btn-theme">Ubah Ke Dark Mode</button>
+
+    <div id="kartu-mahasiswa" class="card">
+        <h3 id="nama-mahasiswa">Rian Hidayat</h3>
+        <p>Status: <span id="status-teks">Belum Diperiksa</span></p>
+        <button id="btn-kelulusan">Setel Lulus</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
