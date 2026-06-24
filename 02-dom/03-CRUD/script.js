@@ -2,7 +2,13 @@ const inputForm = document.getElementById('input-form');
 const input = document.getElementById('input-teks');
 const btnTambah = document.getElementById('button-tambah');
 const listTugas = document.getElementById('list-tugas');
+const btnTheme = document.getElementById('btn-theme');
+const body = document.body;
 
+
+btnTheme.addEventListener("click", ()=>{
+    body.classList.toggle('dark-mode')
+})
 
 
 btnTambah.addEventListener("click", ()=>{
