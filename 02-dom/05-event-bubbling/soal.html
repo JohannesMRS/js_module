@@ -1,0 +1,90 @@
+<!-- <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tantangan Terakhir Event Delegation</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 30px; background-color: #0f172a; color: white; }
+        .box { background-color: #1e293b; padding: 25px; border-radius: 12px; max-width: 500px; border: 1px solid #334155; }
+        h3 { margin-top: 0; color: #38bdf8; }
+        
+        /* Wadah Induk */
+        #pembungkus-tombol { display: flex; gap: 10px; background: #0f172a; padding: 15px; border-radius: 8px; align-items: center; }
+        
+        /* Tombol Kategori */
+        .btn-kategori { background-color: #334155; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-kategori:hover { background-color: #475569; }
+        
+        /* Tombol Diskon Spesial */
+        .btn-diskon { background-color: #eab308; color: #0f172a; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-left: auto; }
+        .btn-diskon:hover { background-color: #facc15; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h3>🎯 Dashboard Filter Menu OXA</h3>
+        <p>Klik tombol kategori untuk memfilter, atau klik tombol kuning untuk cek promo.</p>
+        
+        <div id="pembungkus-tombol">
+            <button class="btn-kategori" data-kategori="Semua">Semua Menu</button>
+            <button class="btn-kategori" data-kategori="Kopi">Khusus Kopi</button>
+            <button class="btn-kategori" data-kategori="Non-Kopi">Non-Kopi</button>
+            
+            <button class="btn-diskon" data-id-promo="PROMO-20">🎉 Info Diskon</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Mandiri Event Delegation</title>
+    <style>
+        body { font-family: sans-serif; padding: 30px; background-color: #0f172a; color: white; }
+        .box { max-width: 400px; background-color: #1e293b; padding: 20px; border-radius: 12px; }
+        h3 { margin-top: 0; color: #38bdf8; }
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #334155; }
+        .grup-tombol { display: flex; align-items: center; gap: 10px; }
+        button { background-color: #38bdf8; border: none; padding: 5px 12px; font-weight: bold; border-radius: 4px; cursor: pointer; }
+        .angka-jumlah { font-weight: bold; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h3>🛒 Quick-Add Menu OXA</h3>
+        
+        <div id="menu-kopi">
+            
+            <div class="item">
+                <span>Aren Latte</span>
+                <div class="grup-tombol">
+                    <button class="btn-aksi" data-aksi="kurang">-</button>
+                    <span class="angka-jumlah">0</span>
+                    <button class="btn-aksi" data-aksi="tambah">+</button>
+                </div>
+            </div>
+
+            <div class="item">
+                <span>Avocado Coffee</span>
+                <div class="grup-tombol">
+                    <button class="btn-aksi" data-aksi="kurang">-</button>
+                    <span class="angka-jumlah">0</span>
+                    <button class="btn-aksi" data-aksi="tambah">+</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
