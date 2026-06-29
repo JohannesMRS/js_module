@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OXA COFFEE - Admin Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 30px; background-color: #0f172a; color: white; min-height: 150vh; }
+        h2, h3 { color: #38bdf8; }
+        .container { max-width: 600px; margin: 0 auto; }
+        
+        /* Form Styling */
+        form { background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 30px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #94a3b8; }
+        input { width: 100%; padding: 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: white; box-sizing: border-box; }
+        
+        button { background: #38bdf8; color: #0f172a; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; }
+        button:hover { background: #0ea5e9; }
+
+        /* List Menu */
+        .menu-item { background: #1e293b; padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; border-left: 4px solid #38bdf8; }
+        
+        /* Tombol Melayang (Floating Button) */
+        #floating-btn { position: fixed; bottom: 20px; right: 20px; background: #eab308; color: #0f172a; padding: 15px; border-radius: 50%; font-weight: bold; cursor: pointer; display: none; width: 50px; height: 50px; text-align: center; line-height: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>💻 Admin Panel - OXA COFFEE</h2>
+        
+        <form id="form-menu">
+            <h3>➕ Tambah Menu Baru</h3>
+            <div class="form-group">
+                <label>Nama Menu</label>
+                <input type="text" id="nama-menu" placeholder="Contoh: Espresso Matcha" required>
+            </div>
+            <div class="form-group">
+                <label>Harga (Rp)</label>
+                <input type="number" id="harga-menu" placeholder="Contoh: 28000" required>
+            </div>
+            <button type="submit" id="btn-submit">Simpan ke Database</button>
+        </form>
+
+        <h3>📋 Daftar Menu Live</h3>
+        <div id="daftar-menu">
+            <div class="menu-item">
+                <span>Aren Latte</span>
+                <strong>Rp 22.000</strong>
+            </div>
+        </div>
+    </div>
+
+    <div id="floating-btn">↑</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
