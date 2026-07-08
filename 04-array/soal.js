@@ -8,8 +8,9 @@ const produk = [
 function hargaSetelahDiskon(data, minHarga, diskonPersen){
     const dataFiltered = data.filter((item)=>item.harga >= minHarga)
     const dataMapped = dataFiltered.map((item)=>({
-        nama: item.nama,
-        harga: item.harga - (item.harga*diskonPersen/100)
+        ...item,
+        harga: item.harga - (item.harga*diskonPersen/100),
+        jenis: "Elektronik",
     }));
     return dataMapped;
 }
