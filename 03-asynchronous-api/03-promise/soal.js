@@ -22,9 +22,14 @@ function pesanTambahan(umur){
     })
 }
 
-cekUmur(20).then(function(response){
-    console.log(response);
-    return pesanTambahan(response);
-}).then(function(response){
-    console.log(response)
-}).catch(err=>console.log(err));
+
+async function cekUmurInfo(umurUser){
+    try{
+        const umur = await cekUmur(umurUser);
+        const status = await pesanTambahan(umur);
+        console.log(`${umur} \n${status}`);
+    }catch(err){console.log(err)}
+}
+
+cekUmurInfo(20);
+cekUmurInfo(10);
