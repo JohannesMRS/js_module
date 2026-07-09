@@ -6,9 +6,17 @@
     <title>AJAX</title>
 </head>
 <body>
+    <h1 id="header"></h1>
     <script>
         const ajax = new XMLHttpRequest();
         ajax.open('GET', 'api/hello.json');
+
+        ajax.addEventListener("load", ()=>{
+            const json = JSON.parse(ajax.responseText);
+            const header = document.getElementById("header");
+            header.textContent = json.nama;
+        })
+
         ajax.send();
     </script>
 </body>
