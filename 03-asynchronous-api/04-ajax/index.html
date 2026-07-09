@@ -8,13 +8,24 @@
 <body>
     <h1 id="header"></h1>
     <script>
-        const ajax = new XMLHttpRequest();
-        ajax.open('GET', 'api/hello.json');
-
-        ajax.addEventListener("load", ()=>{
-            const json = JSON.parse(ajax.responseText);
+        function displayResponse(json){
             const header = document.getElementById("header");
             header.textContent = json.nama;
+        }
+        const ajax = new XMLHttpRequest();
+
+        ajax.open('GET', 'api/helo.json');
+
+        ajax.addEventListener("load", ()=>{
+            if(ajax.status === 200){
+                const json = JSON.parse(ajax.responseText);
+                displayResponse(json);
+            }else{
+                displayResponse({
+                    nama: `Status response: ${ajax.status}`
+                })
+            }
+            
         })
 
         ajax.send();
