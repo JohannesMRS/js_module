@@ -91,74 +91,78 @@
 // })
 
 
-// function cekUser(username, callback){
-//     if(username === "Johannes"){
-//         callback(101)
-//     }
-// }
-
-// function ambilKeranjang(userId, callback){
-//     let hargas = [20000, 30000, 50000];
-//     let totalAwal = 0;
-//     for(let harga of hargas){
-//         totalAwal += harga;
-//     }
-//     callback(totalAwal);
-// }
-
-// function hitungDiskon(totalAwal, callback){
-//     let totalAkhir = 0;
-//     if(totalAwal >= 100000){
-//         totalAkhir = totalAwal - (totalAwal * 10/100);
-//         callback(totalAkhir);
-//     }
-// }
-
-// cekUser("Johannes", function(responseUser){
-//     ambilKeranjang(responseUser, function(responseKeranjang){
-//         hitungDiskon(responseKeranjang, function(responseDiskon){
-//             console.log(`User ${responseUser} harus membayar Rp${responseDiskon} setelah diskon`)
-//         })
-//     })
-// })
-
-// function filterFormatProduk(daftarProduk, callback){
-//     const produkFiltered = daftarProduk.filter((item)=>item.stok > 0);
-//     const mapped = produkFiltered.map((item)=>{
-//         return{
-//             nama: item.nama.toUpperCase(),
-//             harga: item.harga
-//         }
-//     });
-//     callback(mapped);
-// }
-
-// const daftarProduk = [
-//     { id: 1, nama: "kopi hitam", harga: 12000, stok: 5 },
-//     { id: 2, nama: "roti bakar", harga: 15000, stok: 0 },
-//     { id: 3, nama: "susu segar", harga: 10000, stok: 3 }
-// ];
-
-
-// filterFormatProduk(daftarProduk, (hasil)=>{
-//     console.log(hasil);
-// })
-
-function prosesData(callback) {
-    console.log("1");
-    
-    setTimeout(() => {
-        console.log("2");
-        callback();
-    }, 0);
-    
-    console.log("3");
+function cekUser(username, callback){
+    if(username === "Johannes"){
+        callback(101)
+    }
 }
 
-console.log("4");
+function ambilKeranjang(userId, callback){
+    let hargas = [20000, 30000, 50000];
+    let totalAwal = 0;
+    for(let harga of hargas){
+        totalAwal += harga;
+    }
+    callback(totalAwal);
+}
 
-prosesData(() => {
-    console.log("5");
-});
+function hitungDiskon(totalAwal, callback){
+    let totalAkhir = 0;
+    if(totalAwal >= 100000){
+        totalAkhir = totalAwal - (totalAwal * 10/100);
+        callback(totalAkhir);
+    }else{
+        callback(totalAwal);
+    }
+}
 
-console.log("6");
+cekUser("Johannes", function(responseUser){
+    ambilKeranjang(responseUser, function(responseKeranjang){
+        hitungDiskon(responseKeranjang, function(responseDiskon){
+            console.log(`User ${responseUser} harus membayar Rp${responseDiskon} setelah diskon`)
+        })
+    })
+})
+
+function filterFormatProduk(daftarProduk, callback){
+    const produkFiltered = daftarProduk.filter((item)=>item.stok > 0);
+    const mapped = produkFiltered.map((item)=>{
+        return{
+            nama: item.nama.toUpperCase(),
+            harga: item.harga
+        }
+    });
+    callback(mapped);
+}
+
+const daftarProduk = [
+    { id: 1, nama: "kopi hitam", harga: 12000, stok: 5 },
+    { id: 2, nama: "roti bakar", harga: 15000, stok: 0 },
+    { id: 3, nama: "susu segar", harga: 10000, stok: 3 }
+];
+
+
+filterFormatProduk(daftarProduk, (hasil)=>{
+    console.log(hasil);
+})
+
+
+function  kirimOTP(nomorHp, callback){
+    if(!nomorHp.includes(+62)){
+        callback("Nomor tidak mengandung +62", null)
+    }else{
+        callback(null, 5681)
+    }
+
+}
+
+kirimOTP("+62812", (err, otp)=>{
+    setTimeout(()=>{
+        if(err){
+            console.log(err)
+        }else{
+            console.log(`Kode OTP Kamu: ${otp}. Waspada \npenipuan! Jangan berikan kode \nini  kepada siapapun, termasuk \npihak Pegadaian`);
+        }
+    }, 1500)
+})
+
