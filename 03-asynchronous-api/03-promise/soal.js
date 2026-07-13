@@ -88,3 +88,16 @@ cekStok("Kopi").then((statusBarang)=>{
 }).catch((err)=>{
     console.log(err);
 })
+
+
+// Promise All
+
+const nama = "Johannes";
+const umur = 18;
+
+Promise.all([nama, umur])
+.then(res=>{
+    console.log(`Nama: ${res[0]}`);
+    console.log(`Nama: ${res[1]}`);
+
+})
