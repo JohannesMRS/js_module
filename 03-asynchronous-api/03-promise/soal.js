@@ -101,3 +101,7 @@ Promise.all([nama, umur])
     console.log(`Nama: ${res[1]}`);
 
 })
+
+function dataUser(nama){
+    return new Promise
+}

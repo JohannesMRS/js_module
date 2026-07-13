@@ -11,3 +11,10 @@ try{
 }catch(err){
     console.error(err);
 }
+
+
+try{
+    throw new Error('Whoops!');
+}catch(e){
+    console.error(e.name)
+}
