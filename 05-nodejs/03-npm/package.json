@@ -1,0 +1,16 @@
+{
+  "name": "03-npm",
+  "version": "1.0.0",
+  "description": "Belajar Node.js",
+  "license": "ISC",
+  "author": "Johannes",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "validator": "^13.15.35"
+  }
+}
