@@ -60,6 +60,25 @@ const simpanData = (nama, email, noHp)=>{
 }
 
 
+const editData = (nama, email, noHp)=>{
+    const filePath = 'data/contact.json';
+    const readFile = fs.readFileSync(filePath, 'utf-8');
+    const getData = JSON.parse(readFile);
+
+    const item = getData.find(i=>i.email === email);
+
+    if(item){
+        item.nama = nama || item.nama;
+        item.noHp = noHp || item.noHp;
+        fs.writeFileSync(filePath, JSON.stringify(getData, null, 2));
+        console.log(`Data Kontak Berhasil Di Update`);
+    }else{
+        console.log('Item Not Found!');
+    }
+}
+
+
 module.exports = {
-    simpanData
+    simpanData,
+    editData
 }

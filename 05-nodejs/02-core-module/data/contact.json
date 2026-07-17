@@ -1,1 +1,17 @@
-[{"nama":"Sucipto","email":"johannes@gmail.com","noHp":"082274425761"},{"nama":"Sucipta","email":"sucipta@gmail.com","noHp":"082274425761"}]
+[
+  {
+    "nama": "Jali",
+    "email": "johannes@gmail.com",
+    "noHp": "082274425761"
+  },
+  {
+    "nama": "Sucipta",
+    "email": "sucipta@gmail.com",
+    "noHp": "082274425761"
+  },
+  {
+    "nama": "Irfan",
+    "email": "Irfan@gmail.com",
+    "noHp": "082164310500"
+  }
+]

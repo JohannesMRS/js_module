@@ -30,6 +30,38 @@ yargs().command({
         };
         kontak.simpanData(contact.nama,contact.email,contact.noHp);
     }
-})
-.help()
+}).help()
 .parse(hideBin(process.argv));
+
+
+yargs().command({
+    command: 'edit',
+    describe: 'Mengedit Data Kontak',
+    builder: {
+        nama: {
+            describe: 'Nama Lengkap',
+            demandOption: true,
+            type: 'string'
+        },
+        email: {
+            describe: 'Email',
+            demandOption: true,
+            type: 'string',
+        },
+        noHp: {
+            describe: 'Nomor HP',
+            demandOption: false,
+            type: 'string',
+        }
+    },
+    handler(argv){
+        const contact = {
+            nama: argv.nama,
+            email: argv.email,
+            noHp: argv.noHp,
+        }
+        kontak.editData(contact.nama, contact.email, contact.noHp);
+    }
+}).help()
+.parse(hideBin(process.argv));
+
