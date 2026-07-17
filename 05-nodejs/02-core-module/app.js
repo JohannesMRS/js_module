@@ -65,3 +65,39 @@ yargs().command({
 }).help()
 .parse(hideBin(process.argv));
 
+
+
+yargs().command({
+    command: 'hapus',
+    describe: 'Menghapus Data Kontak',
+    builder: {
+        nama: {
+            describe: 'Nama Lengkap',
+            demandOption: false,
+            type: 'string'
+        },
+        email: {
+            describe: 'Email',
+            demandOption: true,
+            type: 'string',
+        },
+        noHp: {
+            describe: 'Nomor HP',
+            demandOption: false,
+            type: 'string',
+        }
+    },
+    handler(argv){
+        const contact = {
+            nama: argv.nama,
+            email: argv.email,
+            noHp: argv.noHp,
+        }
+        kontak.hapusData(contact.nama, contact.email, contact.noHp);
+    }
+}).help()
+.parse(hideBin(process.argv));
+
+
+
+

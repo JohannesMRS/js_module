@@ -1,4 +1,5 @@
 const fs = require('node:fs');
+const { argv } = require('node:process');
 const validator = require('validator');
 // const readline = require('node:readline');
 
@@ -57,7 +58,7 @@ const simpanData = (nama, email, noHp)=>{
     const jsonString = JSON.stringify(json);
     fs.writeFileSync(filePath, jsonString);
     console.log('Data Berhasil Di Input');
-}
+};
 
 
 const editData = (nama, email, noHp)=>{
@@ -75,10 +76,27 @@ const editData = (nama, email, noHp)=>{
     }else{
         console.log('Item Not Found!');
     }
+};
+
+const hapusData = (nama, email, noHp)=>{
+    const filePath = 'data/contact.json';
+    const readFile = fs.readFileSync(filePath, 'utf-8');
+    const getData = JSON.parse(readFile);
+
+    const dataBaru = getData.filter(item=>item.email !== email);
+
+    if(getData.length > dataBaru.length){
+        // getData.push(dataBaru);
+        fs.writeFileSync(filePath, JSON.stringify(dataBaru, null, 2));
+        console.log('Data Berhasil Di Hapus');
+    }else{
+        console.log('Email Tidak Ditemukan');
+    }
 }
 
 
 module.exports = {
     simpanData,
-    editData
+    editData,
+    hapusData,
 }
