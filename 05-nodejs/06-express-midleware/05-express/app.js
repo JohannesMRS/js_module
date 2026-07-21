@@ -20,7 +20,7 @@ app.get('/', (req, res)=>{
             {nama: 'Johannes', email: 'johannes@gmail.com'},
             {nama: 'Akmal Maulana', email: 'akmal@gmail.com'},
             {nama: 'Junaedi Ahmad', email: 'junaedi@gmail.com'},
-            {nama: 'Junaedi Ahmad', email: 'junaedi@gmail.com'},    
+            {nama: 'Ilham Abay', email: 'ilham@gmail.com'}    
         ]
     res.render('index', {
         layout: 'layouts/main-layouts',
