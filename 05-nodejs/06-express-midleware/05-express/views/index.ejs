@@ -1,0 +1,13 @@
+
+    <h1>Halaman Utama</h1>
+    <h2>Selamat Datang <%= nama %></h2>
+    <% if(mahasiswa.length < 1){ %>
+        <p>Data Mahasiswa Kosong...</p>
+    <% }else{ %>
+        <% mahasiswa.forEach(m => { %>
+            <p>Nama:  <%= m.nama %></p>
+            <p>Nama:  <%= m.email %></p>
+        <% }) %>
+    <% } %>
+    
+
