@@ -14,13 +14,20 @@ app.set('view engine', 'ejs');
 
 app.use(expressLayouts);
 
+app.use(express.static('public'));
+
+app.use((req, res, next)=>{
+    console.log('Time: ', Date.now());
+    next();
+})
+
 app.get('/', (req, res)=>{
     // res.sendFile('./index.html', {root: __dirname});
     const mahasiswa = [
             {nama: 'Johannes', email: 'johannes@gmail.com'},
             {nama: 'Akmal Maulana', email: 'akmal@gmail.com'},
             {nama: 'Junaedi Ahmad', email: 'junaedi@gmail.com'},
-            {nama: 'Ilham Abay', email: 'ilham@gmail.com'}    
+            {nama: 'Junaedi Ahmad', email: 'junaedi@gmail.com'},    
         ]
     res.render('index', {
         layout: 'layouts/main-layouts',
@@ -55,6 +62,7 @@ app.use('/', (req, res)=>{
     res.status(404);
     res.send('404 Not Found');
 })
+
 
 app.listen(port, ()=>{
     console.log(`Listening on port ${port}`);
