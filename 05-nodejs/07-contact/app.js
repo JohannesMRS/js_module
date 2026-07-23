@@ -3,8 +3,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import ejs from 'ejs';
 import expressLayouts from 'express-ejs-layouts';
-import { loadContact } from './utils/contacts.js';
-import { findContact } from './utils/contacts.js';
+import { loadContact, findContact, addContact, cekDuplikat } from './utils/contacts.js';
+import {body, check, validationResult} from 'express-validator';
 
 
 const app = express();
@@ -19,6 +19,7 @@ app.use(expressLayouts);
 
 // built in middleware
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
 
 app.get('/', (req, res)=>{
     // res.sendFile('./index.html', {root: __dirname});
@@ -55,11 +56,32 @@ app.get('/contact', (req, res)=>{
     });
 })
 
+
 // contact post
-app.post('/contact', (req, res)=>{
-    console.log(req.body);
-    res.send('Data Berhasil Dibaca')
+const formValidation = [check('email', 'Email Tidak Valid').isEmail(), check('nohp', 'No HP Tidak Valid').isMobilePhone()];
+
+app.post('/contact', body('email').custom((value)=>{
+    const duplikat = cekDuplikat(value);
+    if(duplikat){
+        throw new Error('Email Sudah Dipakai');
+    }
+    return true;
+}), formValidation, (req, res)=>{
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        res.render('add', {
+            layout: 'layouts/main-layout',
+            title: 'Tambah Data',
+            errors: errors.array()
+        })
+    }
+
+    addContact(req.body);
+    res.redirect('/contact');
 })
+
 
 app.get('/contact/add', (req, res)=>{
     res.render('add', {
