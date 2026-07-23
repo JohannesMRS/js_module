@@ -5,6 +5,9 @@ import ejs from 'ejs';
 import expressLayouts from 'express-ejs-layouts';
 import { loadContact, findContact, addContact, cekDuplikat } from './utils/contacts.js';
 import {body, check, validationResult} from 'express-validator';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import flash from 'connect-flash';
 
 
 const app = express();
@@ -20,6 +23,17 @@ app.use(expressLayouts);
 // built in middleware
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
+
+
+// konfigurasi flash message
+app.use(cookieParser('secret'));
+app.use(session({
+    cookie: {maxAge: 6000},
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+}));
+app.use(flash());
 
 app.get('/', (req, res)=>{
     // res.sendFile('./index.html', {root: __dirname});
@@ -52,6 +66,7 @@ app.get('/contact', (req, res)=>{
     res.render('contact', {
         layout: 'layouts/main-layouts',
         title: 'Halaman Kontak',
+        msg: req.flash('msg'),
         contacts
     });
 })
@@ -72,14 +87,19 @@ app.post('/contact', body('email').custom((value)=>{
 
     if(!errors.isEmpty()){
         res.render('add', {
-            layout: 'layouts/main-layout',
+            layout: 'layouts/main-layouts',
             title: 'Tambah Data',
-            errors: errors.array()
+            errors: errors.array(),
         })
+    }else{
+        addContact(req.body);
+        // mengirim flash message
+        req.flash('msg', 'Data Berhasil Ditambah');
+
+        res.redirect('/contact');
     }
 
-    addContact(req.body);
-    res.redirect('/contact');
+    
 })
 
 
