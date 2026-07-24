@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import ejs from 'ejs';
 import expressLayouts from 'express-ejs-layouts';
-import { loadContact, findContact, addContact, cekDuplikat } from './utils/contacts.js';
+import { loadContact, findContact, addContact, cekDuplikat, deleteContact, updateContacts } from './utils/contacts.js';
 import {body, check, validationResult} from 'express-validator';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
@@ -95,12 +95,9 @@ app.post('/contact', body('email').custom((value)=>{
         addContact(req.body);
         // mengirim flash message
         req.flash('msg', 'Data Berhasil Ditambah');
-
         res.redirect('/contact');
     }
-
-    
-})
+});
 
 
 app.get('/contact/add', (req, res)=>{
@@ -108,7 +105,53 @@ app.get('/contact/add', (req, res)=>{
         layout: 'layouts/main-layouts',
         title: 'Tambah Data'
     })
-})
+});
+
+app.get('/contact/delete/:id', (req, res)=>{
+    const contact = findContact(req.params.id);
+    if(!contact){
+        req.flash('msg', 'Data Tidak Ada');
+        res.redirect('/contact');
+    }else{
+        deleteContact(req.params.id);
+        req.flash('msg', 'Data Berhasil DiHapus');
+        res.redirect('/contact');
+    }
+});
+
+app.get('/contact/edit/:id', (req, res)=>{
+    const contact = findContact(req.params.id);
+    res.render('edit', {
+        layout: 'layouts/main-layouts',
+        title: 'Edit Data',
+        contact,
+    })
+});
+
+app.post('/contact/update', body('id').custom((value)=>{
+    const duplikat = cekDuplikat(value);
+    if(duplikat){
+        throw new Error('Email Sudah Dipakai');
+    }
+    return true;
+}), formValidation, (req, res)=>{
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        res.render('add', {
+            layout: 'layouts/main-layouts',
+            title: 'Tambah Data',
+            errors: errors.array(),
+            contact: req.body,
+        })
+    }else{
+        updateContacts(req.body);
+        // mengirim flash message
+        req.flash('msg', 'Data Berhasil Diubah');
+        res.redirect('/contact');
+    }
+});
 
 app.get('/contact/:id', (req, res)=>{
     // res.sendFile('./contact.html', {root: __dirname});
@@ -116,16 +159,16 @@ app.get('/contact/:id', (req, res)=>{
     res.render('detail', {
         layout: 'layouts/main-layouts',
         title: 'Halaman Detail Kontak',
-        contact
+        contact,
     });
-})
+});
 
 
 
 app.use('/', (req, res)=>{
     res.status(404);
     res.send('404 Not Found');
-})
+});
 
 
 app.listen(port, ()=>{

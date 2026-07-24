@@ -31,6 +31,19 @@ export const addContact = (contact)=>{
 export const cekDuplikat = (email)=>{
     const contacts = loadContact();
     return contacts.find(contact=>contact.email === email);
+};
+
+export const deleteContact = (id)=>{
+    const contacts = loadContact();
+    const newContacts = contacts.filter((contact)=>contact.id !== id);
+    return saveData(newContacts);
+}
+
+export const updateContacts = (contactBaru)=>{
+    const contacts = loadContact();
+    const filteredContacts = contacts.filter((contact)=>contact.id !== contactBaru.id);
+    filteredContacts.push(contactBaru);
+    return saveData(filteredContacts);
 }
 
 export const findContact = (id)=>{
@@ -39,3 +52,4 @@ export const findContact = (id)=>{
     const contact = contacts.find(item=>item.id === id);
     return contact;
 };
+
