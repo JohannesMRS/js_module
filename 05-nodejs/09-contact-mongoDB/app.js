@@ -5,6 +5,7 @@ import './utils/db.js';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import flash from 'connect-flash';
+import {body, validationResult, check} from 'express-validator';
 // require('./utils/db');
 
 
@@ -54,6 +55,55 @@ app.get('/contact', async (req, res)=>{
         msg: req.flash('msg'),
         contacts
     });
+});
+
+app.get('/contact/add', (req, res)=>{
+    res.render('add', {
+        layout: 'layouts/main-layouts',
+        title: 'Halaman Tambah Data',
+    });
+});
+
+app.post('/contact', [
+    body('email').custom(async (value)=>{
+        const duplikat = await Contact.findOne({email: value});
+        if(duplikat){
+            throw new Error('Email Sudah Digunakan');
+        }
+        return true;
+    }),
+    check('email', 'Email Tidak Valid').isEmail(),
+    async (req, res)=>{
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            res.render('add', {
+                layout:'layouts/main-layouts',
+                title: 'Halaman Tambah Data',
+                errors: errors.array(),
+            });
+        }else{
+            try{
+                await Contact.insertMany(req.body);
+                req.flash('msg', 'Data Berhasil Ditambah');
+                res.redirect('/contact');
+            }catch(error){
+                console.error(error);
+                res.status(500).send('Terjadi Kesalahan server');
+            }
+        }
+    }
+]);
+
+app.get('/contact/delete/:email', async (req, res)=>{
+    const contact = await Contact.findOne({email: req.params.email});
+    if(!contact){
+        req.flash('msg', 'Data Tidak Ada');
+        res.redirect('/contact');
+    }else{
+        await Contact.deleteOne(req.body);
+        req.flash('msg', 'Data Berhasil DiHapus');
+        res.redirect('/contact');
+    }
 });
 
 app.get('/contact/:nama', async (req, res)=>{
