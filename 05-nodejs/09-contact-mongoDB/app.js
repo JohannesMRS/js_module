@@ -6,6 +6,8 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import flash from 'connect-flash';
 import {body, validationResult, check} from 'express-validator';
+import pkg from 'method-override'; 
+const methodOverride = pkg;
 // require('./utils/db');
 
 
@@ -24,6 +26,8 @@ app.use(session({
     saveUninitialized: true,
 }));
 app.use(flash());
+
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res)=>{
 
@@ -57,12 +61,31 @@ app.get('/contact', async (req, res)=>{
     });
 });
 
+app.delete('/contact', async (req, res)=>{
+    try{
+        const result = await Contact.deleteOne({_id: req.body._id});
+
+        if(result.deletedCount === 0){
+            req.flash('msg', 'Data Tidak Ditemukan atau Sudah Di Hapus');
+            return res.redirect('/contact');
+        };
+        req.flash('msg', 'Data Berhasil DiHapus');
+        res.redirect('/contact');
+    }catch(err){
+        console.error(`Gagal Saat Menghapus Data: ${err}`);
+        req.flash('msg', 'Gagal Menghapus Data');
+        res.redirect('/contact');
+    }
+});
+
 app.get('/contact/add', (req, res)=>{
     res.render('add', {
         layout: 'layouts/main-layouts',
         title: 'Halaman Tambah Data',
     });
 });
+
+
 
 app.post('/contact', [
     body('email').custom(async (value)=>{
@@ -94,26 +117,28 @@ app.post('/contact', [
     }
 ]);
 
-app.get('/contact/delete/:email', async (req, res)=>{
-    const contact = await Contact.findOne({email: req.params.email});
-    if(!contact){
-        req.flash('msg', 'Data Tidak Ada');
-        res.redirect('/contact');
-    }else{
-        await Contact.deleteOne({email: req.params.email});
-        req.flash('msg', 'Data Berhasil DiHapus');
-        res.redirect('/contact');
-    }
-});
+// app.get('/contact/delete/:email', async (req, res)=>{
+//     const contact = await Contact.findOne({email: req.params.email});
+//     if(!contact){
+//         req.flash('msg', 'Data Tidak Ada');
+//         res.redirect('/contact');
+//     }else{
+//         await Contact.deleteOne({email: req.params.email});
+//         req.flash('msg', 'Data Berhasil DiHapus');
+//         res.redirect('/contact');
+//     }
+// });
 
-app.get('/contact/edit/:email', async (req, res)=>{
-    const contact = await Contact.findOne({email:req.params.email});
+
+
+app.get('/contact/edit/:id', async (req, res)=>{
+    const contact = await Contact.findOne({_id:req.params.id});
     res.render('edit', {
         layout: 'layouts/main-layouts',
         title: 'Halaman Edit Data',
         contact,
     })
-})
+});
 
 const formValidation = [check('email', 'Email Tidak Valid').isEmail()];
 app.get('/contact/:id', async (req, res)=>{
@@ -126,37 +151,51 @@ app.get('/contact/:id', async (req, res)=>{
     });
 });
 
-app.post('/contact/update', body('email').custom(async (value, {req})=>{
-    const duplikat = await Contact.findOne({email: value});
-    if(duplikat && duplikat._id.toString() != req.body._id){
-        throw new Error('Email Sudah Dipakai');
-    }
-    return true;
-}), formValidation, async (req, res)=>{
+app.put('/contact/:id', async (req, res)=>{
+    try{
+        const { id } = req.params;
+        const {nama, email} = req.body;
+        await Contact.findByIdAndUpdate(id, {nama, email});
 
-    const errors = validationResult(req);
-
-    if(!errors.isEmpty()){
-        res.render('edit', {
-            layout: 'layouts/main-layouts',
-            title: 'Tambah Data',
-            errors: errors.array(),
-            contact: req.body,
-        })
-    }else{
-        await Contact.updateOne(
-            {_id: req.body._id},
-            {
-                $set: {
-                    nama: req.body.nama,
-                    email: req.body.email
-                }
-            }
-        );
         req.flash('msg', 'Data Berhasil Diubah');
         res.redirect('/contact');
+    }catch(err){
+        console.error(err);
+        res.status(500).send('Gagal Update Data');
     }
 });
+
+// app.post('/contact/update', body('email').custom(async (value, {req})=>{
+//     const duplikat = await Contact.findOne({email: value});
+//     if(duplikat && duplikat._id.toString() != req.body._id){
+//         throw new Error('Email Sudah Dipakai');
+//     }
+//     return true;
+// }), formValidation, async (req, res)=>{
+
+//     const errors = validationResult(req);
+
+//     if(!errors.isEmpty()){
+//         res.render('edit', {
+//             layout: 'layouts/main-layouts',
+//             title: 'Tambah Data',
+//             errors: errors.array(),
+//             contact: req.body,
+//         })
+//     }else{
+//         await Contact.updateOne(
+//             {_id: req.body._id},
+//             {
+//                 $set: {
+//                     nama: req.body.nama,
+//                     email: req.body.email
+//                 }
+//             }
+//         );
+        // req.flash('msg', 'Data Berhasil Diubah');
+//         res.redirect('/contact');
+//     }
+// });
 
 app.listen(port, ()=>{
     console.log(`Server Running At Port ${port}`);

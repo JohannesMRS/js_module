@@ -13,10 +13,15 @@
                         <h5 class="card-title fw-bold">Detail Kontak</h5>
                         <h6 class="card-subtitle mb-2 text-body-secondary"><%= contact.nama %></h6>
                         <p class="card-text"><%= contact.email %></p>
-                        <a href="/contact/delete/<%= contact.email %>" onclick="return confirm('Yakin?')">Hapus</a>
-                        <a href="/contact/edit/<%= contact.email %>">Edit</a>
+                        <!-- <a href="/contact/delete/<%= contact.email %>" onclick="return confirm('Yakin?')">Hapus</a> -->
+                        <a href="/contact/edit/<%= contact._id %>" class = "btn btn-primary badge">Edit</a>
+                        <form action="/contact?_method=DELETE" method="post" class = "d-inline">
+                            <input type="hidden" name="_id" id="id" value="<%= contact._id %>">
+                            <button type="submit" class ="btn btn-danger badge" onclick="return confirm('Apakah Anda Yakin?')">Hapus</button>
+                        </form>
+                        
                         <br>
-                        <a href="/contact" class="card-link btn btn-secondary"><i class="bi bi-arrow-left"></i>Kembali</a>
+                        <a href="/contact" class="card-link btn btn-secondary mt-3"><i class="bi bi-arrow-left"></i>Kembali</a>
                     </div>
                 </div>
             <% } %>    

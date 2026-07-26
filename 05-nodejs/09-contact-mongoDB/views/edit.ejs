@@ -20,10 +20,7 @@
         <% } %>
 
 
-        <form class = "w-75" method="post" action="/contact/update">
-            <div class="mb-3">
-                <input type="hidden" class="form-control" id="id" name="_id" required value="<%= contact._id %>">
-            </div>
+        <form class = "w-75" method="post" action="/contact/<%= contact._id %>?_method=PUT">
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
                 <input type="text" class="form-control" id="nama" name="nama" required value="<%= contact.nama %>">
