@@ -100,20 +100,62 @@ app.get('/contact/delete/:email', async (req, res)=>{
         req.flash('msg', 'Data Tidak Ada');
         res.redirect('/contact');
     }else{
-        await Contact.deleteOne(req.body);
+        await Contact.deleteOne({email: req.params.email});
         req.flash('msg', 'Data Berhasil DiHapus');
         res.redirect('/contact');
     }
 });
 
-app.get('/contact/:nama', async (req, res)=>{
+app.get('/contact/edit/:email', async (req, res)=>{
+    const contact = await Contact.findOne({email:req.params.email});
+    res.render('edit', {
+        layout: 'layouts/main-layouts',
+        title: 'Halaman Edit Data',
+        contact,
+    })
+})
+
+const formValidation = [check('email', 'Email Tidak Valid').isEmail()];
+app.get('/contact/:id', async (req, res)=>{
     // res.sendFile('./contact.html', {root: __dirname});
-    const contact = await Contact.findOne({nama:req.params.nama});
+    const contact = await Contact.findById(req.params.id);
     res.render('detail', {
         layout: 'layouts/main-layouts',
         title: 'Halaman Detail Kontak',
         contact,
     });
+});
+
+app.post('/contact/update', body('email').custom(async (value, {req})=>{
+    const duplikat = await Contact.findOne({email: value});
+    if(duplikat && duplikat._id.toString() != req.body._id){
+        throw new Error('Email Sudah Dipakai');
+    }
+    return true;
+}), formValidation, async (req, res)=>{
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        res.render('edit', {
+            layout: 'layouts/main-layouts',
+            title: 'Tambah Data',
+            errors: errors.array(),
+            contact: req.body,
+        })
+    }else{
+        await Contact.updateOne(
+            {_id: req.body._id},
+            {
+                $set: {
+                    nama: req.body.nama,
+                    email: req.body.email
+                }
+            }
+        );
+        req.flash('msg', 'Data Berhasil Diubah');
+        res.redirect('/contact');
+    }
 });
 
 app.listen(port, ()=>{
