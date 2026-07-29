@@ -1,16 +1,19 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import ejs from 'ejs';
 import expressLayouts from 'express-ejs-layouts';
-// import bodyParser from 'body-parser';s
 import router from './routes/products.js';
-// import { urlencoded } from 'body-parser';
+import mongoose from 'mongoose';
+import {connectDB} from './models/db.js';
+
 
 const app = express();
 const port = 3000;
 
+dotenv.config();
+
 app.use(expressLayouts);
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
 
 app.get('/', (req, res)=>{
     res.json([
@@ -22,6 +25,8 @@ app.get('/', (req, res)=>{
 
 app.use('/products', router);
 
-app.listen(port, ()=>{
-    console.log('Listening On Port', port);
-})
+connectDB().then(()=>{
+    app.listen(port, ()=>{
+        console.log('Listening On Port', port);
+    });
+});
