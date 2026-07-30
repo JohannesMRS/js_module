@@ -13,7 +13,7 @@ routerMahasiswa.use(express.json());
 
 routerMahasiswa.get('/', async (req, res)=>{
     try{
-        const dataMahasiswa = await mahasiswa.find();
+        const dataMahasiswa = await Mahasiswa.find();
         response(200, dataMahasiswa, "Show Data From Database", res)
     }catch(err){
         // res.status(500).json({error: err.message});
@@ -88,6 +88,15 @@ routerMahasiswa.delete('/:nim', async (req, res)=>{
         });
     }catch(err){
         res.status(500).json({ error: err.message });
+    }
+})
+
+routerMahasiswa.get('/:nim', async (req, res)=>{
+    try{
+        const detailData = await Mahasiswa.findOne({nim: req.params.nim});
+        response(200, detailData, 'Berhasil Mengambil Data', res);
+    }catch(err){
+        response(500, "", "Failed To Show Detail Data", res);
     }
 })
 
