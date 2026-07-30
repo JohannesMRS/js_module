@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 import {connectDB} from './models/db.js';
 import routerMahasiswa from './routes/mahasiswa.js';
 import response from './helpers/payload.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger-output.json' with {type: 'json'};
 
 
 const app = express();
@@ -14,7 +16,7 @@ const port = 3000;
 
 
 app.use(expressLayouts);
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/', (req, res)=>{
     const data = [{
@@ -25,7 +27,7 @@ app.get('/', (req, res)=>{
 });
 
 
-app.use('/products', router);
+// app.use('/products', router);
 
 app.use('/mahasiswa', routerMahasiswa);
 
