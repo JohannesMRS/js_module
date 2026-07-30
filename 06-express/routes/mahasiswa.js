@@ -2,7 +2,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import Mahasiswa from '../models/mahasiswa.js';
-// import router from './products.js';
+import response from "../helpers/payload.js";
+
 
 const routerMahasiswa = express.Router();
 
@@ -12,10 +13,11 @@ routerMahasiswa.use(express.json());
 
 routerMahasiswa.get('/', async (req, res)=>{
     try{
-        const dataMahasiswa = await Mahasiswa.find();
-        res.status(200).json(dataMahasiswa);
+        const dataMahasiswa = await mahasiswa.find();
+        response(200, dataMahasiswa, "Show Data From Database", res)
     }catch(err){
-        res.status(500).json({error: err.message});
+        // res.status(500).json({error: err.message});
+        response(500, "", "Failed To Show Data From Database", res)
     }
 });
 
@@ -26,7 +28,7 @@ routerMahasiswa.post('/', async(req, res)=>{
             res.status(400).json({
                 success: false,
                 message: 'NIM Sudah Dipakai',
-            })
+            });
         }else{
             const mahasiswaBaru = new Mahasiswa({
                 nim: req.body.nim,

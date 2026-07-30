@@ -5,7 +5,7 @@ import router from './routes/products.js';
 import mongoose from 'mongoose';
 import {connectDB} from './models/db.js';
 import routerMahasiswa from './routes/mahasiswa.js';
-
+import response from './helpers/payload.js';
 
 
 const app = express();
@@ -17,10 +17,11 @@ app.use(expressLayouts);
 
 
 app.get('/', (req, res)=>{
-    res.json([
-        {nama: "Johannes", kelas: "MI-4B"},
-        {nama: "Ahmad"}
-    ]);
+    const data = [{
+        nama: "Johannes",
+        kelas: "MI-4B"
+    }]
+    response(200, data, "Data Mahasiswa", res);
 });
 
 
