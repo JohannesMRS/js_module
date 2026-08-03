@@ -34,7 +34,7 @@ routeUser.post('/',
             return userPayloads(400, errors.array(), null, res);
         }
 
-        // Cek Duplikat Email
+        // Bereng Email Na Sarupa
         const emailDuplikat = await Users.findOne({email: email});
         if(emailDuplikat){
             return userPayloads(409, 'Email Sudah Dipakai', null, res);
