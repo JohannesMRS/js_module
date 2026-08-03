@@ -62,6 +62,7 @@ routeUser.put('/:id',
     ],async (req, res)=>{
     try{
         const errors = validationResult(req);
+        const {id} = req.params;
         const {nama, email, password} = req.body;
         const saltRounds = 10;
 
@@ -74,7 +75,7 @@ routeUser.put('/:id',
         const emailDuplikat = await Users.findOne(
             {
                 email: email,
-                _id: { $ne: req.params.id}
+                _id: { $ne: id}
             }
         );
         if(emailDuplikat){
@@ -84,7 +85,7 @@ routeUser.put('/:id',
         const passwordHashed = await bcrypt.hash(password, saltRounds);
 
         const result = await Users.findOneAndUpdate(
-            {_id:req.params.id},
+            {_id:id},
             {$set: {
                 nama,
                 email,
@@ -93,7 +94,7 @@ routeUser.put('/:id',
             {new: true, runValidators: true}
         );
 
-        const showData = await Users.findOne({_id:req.params.id});
+        const showData = await Users.findOne({_id:id});
         userPayloads(200, 'Data Berhasil DiUpdate', result, res);
         
     }catch(err){
@@ -109,5 +110,6 @@ routeUser.delete('/:id', async (req, res)=>{
     userPayloads(500, 'Gagal Menghapus Data', null, res);
    }
 })
+
 
 export default routeUser;
