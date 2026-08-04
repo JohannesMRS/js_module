@@ -4,6 +4,8 @@ import Users from './models/users.js';
 import users from './routes/users.js';
 import Menu from './models/menu.js';
 import menus from './routes/menu.js';
+import Pesanan from './models/pesanan.js';
+import pesanans from './routes/pesanan.js';
 
 const app = express();
 const port = 3000;
@@ -17,6 +19,8 @@ app.get('/', (req, res)=>{
 app.use('/users', users);
 
 app.use('/menu', menus);
+
+app.use('/pesanan', pesanans);
 
 dbConnect().then(
     app.listen(port, ()=>{

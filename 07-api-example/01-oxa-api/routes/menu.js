@@ -67,6 +67,6 @@ routeMenu.delete('/:id', async (req, res)=>{
     }catch(err){
         userPayloads(500, 'Gagal Menghapus Data', null, res);
     }
-})
+});
 
 export default routeMenu;
