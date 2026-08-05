@@ -17,11 +17,11 @@ app.get('/', (req, res)=>{
     res.send('Berhasil')
 });
 
-app.use('/users', users);
+app.use('/api/users', users);
 
-app.use('/menu', menus);
+app.use('/api/menu', menus);
 
-app.use('/pesanan', pesanans);
+app.use('/api/pesanan', pesanans);
 
 dbConnect()
 .then(()=>{

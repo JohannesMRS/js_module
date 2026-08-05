@@ -86,4 +86,15 @@ export const updatePesanan = async (req, res)=>{
     }catch(err){
         userPayloads(500, 'Gagal Update Data', null, res);
     }
-}
+};
+
+export const deletePesanan = async (req, res)=>{
+    try{
+        const {id} = req.params;
+        const result = await Pesanan.findOneAndDelete({_id: id});
+        userPayloads(200, 'Data Berhasil Di Hapus', result, res);
+    }catch(err){
+        userPayloads(500, 'Gagal Menghapus Data', null, res);
+    }
+};
+
