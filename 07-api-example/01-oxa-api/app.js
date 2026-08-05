@@ -29,3 +29,5 @@ dbConnect()
         console.log(`Listening On Port: ${PORT}`);
     })
 })
+
+export default app;
