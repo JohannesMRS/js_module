@@ -66,3 +66,24 @@ export const postPesanan = async (req, res)=>{
         userPayloads(500, "Gagal Mengambil Data", null, res);
     }
 }
+
+export const updatePesanan = async (req, res)=>{
+    try{
+        const {id} = req.params;
+        const {namaMenu, hargaMenu, jumlahBeli, namaPembeli} = req.body;
+        const result = await Pesanan.findOneAndUpdate(
+            {_id: id},
+            {$set: {
+                namaMenu,
+                hargaMenu,
+                jumlahBeli,
+                namaPembeli
+            }},
+            {new: true, runValidators:true}
+        );
+
+        userPayloads(200, 'Data Berhasil Di Update', result, res);
+    }catch(err){
+        userPayloads(500, 'Gagal Update Data', null, res);
+    }
+}
