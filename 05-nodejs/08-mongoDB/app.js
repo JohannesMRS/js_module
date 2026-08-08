@@ -11,9 +11,7 @@ async function main(){
       namaPembeli: "Ismail Muchtar"
     };
 
-    const result = await Pesanan.find(
-      {jumlahBeli: {$ne: 2}}
-    );
+    const result = await Pesanan.deleteMany({});
 
     console.log(result);
   }catch(err){
