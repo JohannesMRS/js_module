@@ -1,12 +1,24 @@
-import mongoose from "mongoose";
+import conn from './models/db.js';
+import Pesanan from './models/pesanan.js';
 
-const conn = async()=>{
+async function main(){
+  await conn();
   try{
-    await mongoose.connect('mongodb://localhost:27017/oxa');
-    console.log('Koneksi Berhasil');
+    const data = {
+      namaMenu: "Ayam Penyet",
+      hargaMenu: 14000,
+      jumlahBeli: 4,
+      namaPembeli: "Ismail Muchtar"
+    };
+
+    const result = await Pesanan.find(
+      {jumlahBeli: {$ne: 2}}
+    );
+
+    console.log(result);
   }catch(err){
     console.error(err);
   }
 }
 
-conn();
+main();
