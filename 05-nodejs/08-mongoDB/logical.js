@@ -18,10 +18,14 @@ async function main(){
     //     ]
     // });
 
-    const result = await Pesanan.findOne({order_id: 'ORD-1001'})
-
-    console.log(result.payment_method);
-  }catch(err){
+    const result = await Pesanan.find({
+        $or: [
+            {rating: {$gt:4.8}},
+            {rating: {$lt:4.2}}
+        ]
+    });
+    console.log(result);
+    }catch(err){
     console.error(err);
   }
 }
