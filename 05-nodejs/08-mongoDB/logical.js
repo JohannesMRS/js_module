@@ -18,12 +18,7 @@ async function main(){
     //     ]
     // });
 
-    const result = await Pesanan.find({
-        $or: [
-            {rating: {$gt:4.8}},
-            {rating: {$lt:4.2}}
-        ]
-    });
+    const result = await Pesanan.find();
     console.log(result);
     }catch(err){
     console.error(err);
